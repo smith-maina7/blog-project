@@ -79,6 +79,7 @@ const submiteBlog = async () => {
   width: 100%;
   margin: 10px 0;
   padding: 8px;
+  color: #222;
 }
 .create-blog label {
   display: block;

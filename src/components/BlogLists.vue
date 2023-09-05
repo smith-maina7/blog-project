@@ -7,7 +7,7 @@
         <h2 v-if="blogs">{{ blog.title }}</h2>
       </RouterLink>
       <p v-if="blogs">{{ blog.snippet }} id: {{ blog._id }}</p>
-      <button @click="deleteBlog" class="delete-button">
+      <button @click="deleteBlog(blog._id)" class="delete-button">
         <i class="fas fa-trash-alt"></i>
       </button>
     </div>
@@ -16,11 +16,11 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 
 const blogs = ref([]);
 const isLoading = ref(false);
-const route = useRoute();
+// const route = useRoute();
 
 const fetchingBlogPosts = async () => {
   try {
@@ -44,14 +44,14 @@ const fetchingBlogPosts = async () => {
 onMounted(fetchingBlogPosts);
 
 // detele functionality
-const deleteBlog = async () => {
+const deleteBlog = async (blogId) => {
   try {
-    const blogId = route.params._id;
-    console.log(`deleting ${blogId}`);
+    console.log(blogId);
     const apiUrl = `http://localhost:3000/blogs/${blogId}`;
     const response = await fetch(apiUrl, { method: "DELETE" });
     if (response.status === 200) {
       console.log("successfully deleted blog ");
+      window.location.reload();
     }
   } catch (err) {
     console.log("Failed to delete" + err);
