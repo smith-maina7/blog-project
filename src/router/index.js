@@ -3,6 +3,8 @@ import HomeView from "../views/HomeView.vue";
 import AboutView from "../views/AboutView.vue";
 import NewBlogView from "../components/NewBlog.vue";
 import BlogBody from "../components/BlogBody.vue";
+import SignInView from "../components/SignIn.vue";
+import SignUpView from "../components/SignUp.vue";
 
 const routes = [
   {
@@ -25,6 +27,16 @@ const routes = [
     name: "blogbody",
     component: BlogBody,
     props: true,
+  },
+  {
+    path: "/sign-in",
+    name: "signin",
+    component: SignInView,
+  },
+  {
+    path: "/sign-up",
+    name: "signup",
+    component: SignUpView,
   },
 ];
 
