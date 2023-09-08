@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
+const userRoutes = require("./routes/userRoutes");
 const cors = require("cors"); //to make it possible to share between different domains(localhost)
 
 const server = express();
@@ -25,5 +26,6 @@ server.use(express.json());
 
 //! setting up blog routes
 server.use(blogRoutes);
+server.use(userRoutes);
 
 //todo: set up mvc and express router
