@@ -21,6 +21,7 @@ const routes = [
     path: "/newblog",
     name: "newblog",
     component: NewBlogView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/blog/:id",
@@ -44,5 +45,11 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    next("/sign-in");
+  } else {
+    next();
+  }
+});
 export default router;

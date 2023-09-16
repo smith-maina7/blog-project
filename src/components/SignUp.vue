@@ -40,7 +40,7 @@ const signUp = async () => {
         email: email.value,
         password: password.value,
         name: name.value,
-      }),
+      }), // Include cookies in the request and response
     });
     if (response.status === 200) {
       console.log("blog successfully added");

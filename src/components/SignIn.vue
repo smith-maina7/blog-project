@@ -10,6 +10,7 @@
         <label for="password">Password:</label>
         <input type="password" id="password" v-model="password" required />
       </div>
+      <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       <button type="submit">Sign In</button>
     </form>
   </div>
@@ -17,12 +18,42 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const router = useRouter();
+const errorMessage = ref("");
 
-const signIn = () => {
-  // Implement your sign-in logic here
+const signIn = async () => {
+  try {
+    const apiUrl = "http://localhost:3000/login";
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }), // Include cookies in the request and response
+    });
+    if (response.status === 200) {
+      console.log("blog successfully added");
+      router.push({ name: "home" });
+      return true;
+    } else {
+      // Handle server-side errors
+      const data = await response.json();
+      if (data.errors) {
+        errorMessage.value =
+          data.errors.email || data.errors.password || "Unknown error";
+        return false;
+      } else {
+        console.log("incorrect email or password");
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 
@@ -73,5 +104,13 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+.error-message {
+  color: #ff0000; /* Red color for error messages */
+  font-size: 14px; /* Adjust the font size as needed */
+  margin-top: 5px; /* Add spacing above the error message */
+  font-weight: bold; /* Make the text bold */
+  background-color: #ffeeee; /* Light pink background color */
+  padding: 5px; /* Add padding for better readability */
 }
 </style>

@@ -4,6 +4,7 @@ const userControllers = require("../Controllers/userController");
 
 route.get("/users", userControllers.user_index);
 route.post("/users", userControllers.post_user);
+route.post("/login", userControllers.login_user);
 
 // route.get("/blogs/:id", blogControllers.blog_post_details);
 
