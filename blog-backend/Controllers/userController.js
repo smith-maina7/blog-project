@@ -46,7 +46,7 @@ const user_index = async (req, res) => {
     res.status(500).json({ message: "route error" });
   }
 };
-const post_user = async (req, res) => {
+const signup_user = async (req, res) => {
   //todo: 1st method to create and save user to the database
   // try {
   //   const newUser = new User(req.body);
@@ -89,6 +89,6 @@ const login_user = async (req, res) => {
 };
 module.exports = {
   user_index,
-  post_user,
+  signup_user,
   login_user,
 };
