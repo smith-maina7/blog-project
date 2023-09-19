@@ -13,13 +13,16 @@
       <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       <button type="submit">Sign In</button>
     </form>
+    <router-link :to="{ name: 'signup' }"> Register </router-link>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/store/authStore";
 
+const authStore = useAuthStore();
 const email = ref("");
 const password = ref("");
 const router = useRouter();
@@ -37,7 +40,10 @@ const signIn = async () => {
       }), // Include cookies in the request and response
     });
     if (response.status === 200) {
-      console.log("blog successfully added");
+      const user = await response.json();
+      authStore.login(user);
+
+      console.log("login successfull ");
       router.push({ name: "home" });
       return true;
     } else {
@@ -100,6 +106,7 @@ button {
   border-radius: 4px;
   font-size: 18px;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 button:hover {
@@ -112,5 +119,15 @@ button:hover {
   font-weight: bold; /* Make the text bold */
   background-color: #ffeeee; /* Light pink background color */
   padding: 5px; /* Add padding for better readability */
+}
+a {
+  color: #777;
+  margin-top: 20px;
+  color: #333;
+  text-decoration: none; /* Remove underline from the links */
+  font-weight: 700;
+}
+a:hover {
+  color: #555;
 }
 </style>

@@ -32,7 +32,7 @@ const router = useRouter();
 
 const signUp = async () => {
   try {
-    const apiUrl = "http://localhost:3000/users";
+    const apiUrl = "http://localhost:3000/register";
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

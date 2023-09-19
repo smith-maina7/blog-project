@@ -65,7 +65,7 @@ const signup_user = async (req, res) => {
       maxAge: maxAge * 1000,
       domain: "localhost",
     });
-    res.json(newUser._id);
+    res.json(newUser);
   } catch (err) {
     const errors = handleError(err);
     res.status(400).json({ errors });
@@ -81,7 +81,7 @@ const login_user = async (req, res) => {
       maxAge: maxAge * 1000,
       domain: "localhost",
     });
-    res.status(200).json(user._id);
+    res.status(200).json(user);
   } catch (err) {
     const errors = handleError(err);
     res.status(400).json({ errors });

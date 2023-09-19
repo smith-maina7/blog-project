@@ -13,12 +13,19 @@
     </ul>
     <div class="auth-links">
       <RouterLink :to="{ name: 'signin' }">Sign In</RouterLink>
-      <RouterLink :to="{ name: 'signup' }">Sign Up</RouterLink>
+      <div v-if="isLoggedIn">
+        <p>Welcome, {{ userName }}!</p>
+        <button @click="logout">Logout</button>
+      </div>
     </div>
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { useAuthStore } from "@/store/authStore";
+
+const { isLoggedIn, userName, logout } = useAuthStore;
+</script>
 
 <style lang="scss">
 nav {
