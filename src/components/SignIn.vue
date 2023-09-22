@@ -11,7 +11,7 @@
         <input type="password" id="password" v-model="password" required />
       </div>
       <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
-      <button type="submit">Sign In</button>
+      <button type="submit" v-if="!isLoggedIn">Sign In</button>
     </form>
     <router-link :to="{ name: 'signup' }"> Register </router-link>
   </div>
@@ -28,6 +28,8 @@ const password = ref("");
 const router = useRouter();
 const errorMessage = ref("");
 
+let isLoggedIn = authStore.isLoggedIn;
+
 const signIn = async () => {
   try {
     const apiUrl = "http://localhost:3000/login";
@@ -43,7 +45,6 @@ const signIn = async () => {
       const user = await response.json();
       authStore.login(user);
 
-      console.log("login successfull ");
       router.push({ name: "home" });
       return true;
     } else {

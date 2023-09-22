@@ -12,10 +12,12 @@
       <li><RouterLink :to="{ name: 'newblog' }">New Blog</RouterLink></li>
     </ul>
     <div class="auth-links">
-      <RouterLink :to="{ name: 'signin' }">Sign In</RouterLink>
-      <div v-if="isLoggedIn">
+      <RouterLink :to="{ name: 'signin' }" v-if="!isLoggedIn"
+        >Sign In</RouterLink
+      >
+      <div v-if="isLoggedIn" class="user-info">
         <p>Welcome, {{ userName }}!</p>
-        <button @click="logout">Logout</button>
+        <button @click="logout" class="logout-button">Logout</button>
       </div>
     </div>
   </nav>
@@ -23,8 +25,9 @@
 
 <script setup>
 import { useAuthStore } from "@/store/authStore";
+//import { ref } from "vue";
 
-const { isLoggedIn, userName, logout } = useAuthStore;
+const { isLoggedIn, userName, logout } = useAuthStore();
 </script>
 
 <style lang="scss">
@@ -76,5 +79,30 @@ nav a {
 /* Style for the auth links on hover */
 .auth-links a:hover {
   color: #555; /* Change the color on hover */
+}
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info p {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.logout-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: #0056b3;
 }
 </style>
