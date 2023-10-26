@@ -3,13 +3,15 @@
     <h1>My Blogs</h1>
     <div class="loading" v-if="blogStore.isLoading">Loading....</div>
     <div class="blogs" v-for="blog in blogStore.blogs" :key="blog._id">
-      <RouterLink :to="/blog/ + blog._id">
-        <h2 v-if="blogStore.blogs">{{ blog.title }}</h2>
-      </RouterLink>
-      <p v-if="blogStore.blogs">{{ blog.snippet }} id: {{ blog._id }}</p>
-      <button @click="deleteBlog(blog._id)" class="delete-button">
-        <i class="fas fa-trash-alt"></i>
-      </button>
+      <div class="blog-actions">
+        <RouterLink :to="'/blog/' + blog._id">
+          <h2 v-if="blogStore.blogs">{{ blog.title }}</h2>
+        </RouterLink>
+        <button @click="deleteBlog(blog._id)" class="delete-button">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+      <p v-if="blogStore.blogs">{{ blog.snippet }}</p>
     </div>
   </div>
 </template>
@@ -46,14 +48,25 @@ const deleteBlog = async (blogId) => {
 h2 {
   cursor: pointer;
 }
+.blog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+}
 /* Your component's CSS or SCSS */
+.blogs {
+  margin: 50px auto;
+}
+
 .delete-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: red; /* Icon color */
+  color: inherit; /* Icon color */
+  font-size: 18px;
 }
 
 .material-icons {
